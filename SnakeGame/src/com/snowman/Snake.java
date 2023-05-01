@@ -6,7 +6,8 @@ public class Snake {
 
     private LinkedList<Node> body;
     private Direction direction = Direction.LEFT;
-    private boolean isLiving = true;
+    public boolean isLiving = true;
+    private Node lastTail;
 
 
     public Snake() {
@@ -46,6 +47,7 @@ public class Snake {
 
             case RIGHT -> body.addFirst(new Node(head.getX() + 1, head.getY()));
         }
+        lastTail = body.getLast();
         body.removeLast();
 
         // 判断是否撞墙
@@ -85,7 +87,8 @@ public class Snake {
     }
 
     public void eat(Node food) {
-        body.addLast(food.copy());
+        body.addLast(lastTail);
+        lastTail = null;
         food.random();
     }
 }

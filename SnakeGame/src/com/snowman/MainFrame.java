@@ -103,6 +103,7 @@ public class MainFrame extends JFrame {
                 g.clearRect(0, 0, 600, 600);
 
                 // 绘制网格线
+                g.setColor(Color.GRAY);
                 for (int i = 0; i <= 40 * 15; i += 15) {
                     g.drawLine(0, i, 600, i);
                     g.drawLine(i, 0, i, 600);
