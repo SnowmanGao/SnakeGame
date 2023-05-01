@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Stack;
 import java.util.Timer;
 import java.util.LinkedList;
 import java.util.TimerTask;
@@ -37,21 +36,21 @@ public class MainFrame extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP, KeyEvent.VK_W -> {
-                        snake.setDirection(Direction.UP);
-                    }
-                    case KeyEvent.VK_DOWN, KeyEvent.VK_S -> {
-                        snake.setDirection(Direction.DOWN);
-                    }
-                    case KeyEvent.VK_LEFT, KeyEvent.VK_A -> {
-                        snake.setDirection(Direction.LEFT);
-                    }
-                    case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> {
-                        snake.setDirection(Direction.RIGHT);
-                    }
 
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_UP, KeyEvent.VK_W ->
+                        snake.setDirection(Direction.UP);
+
+                    case KeyEvent.VK_DOWN, KeyEvent.VK_S ->
+                        snake.setDirection(Direction.DOWN);
+
+                    case KeyEvent.VK_LEFT, KeyEvent.VK_A ->
+                        snake.setDirection(Direction.LEFT);
+
+                    case KeyEvent.VK_RIGHT, KeyEvent.VK_D ->
+                        snake.setDirection(Direction.RIGHT);
                 }
+
             }
         });
     }

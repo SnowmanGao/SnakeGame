@@ -6,6 +6,7 @@ public class Snake {
 
     private LinkedList<Node> body;
     private Direction direction = Direction.LEFT;
+    private boolean isLiving = true;
 
 
     public Snake() {
@@ -29,17 +30,37 @@ public class Snake {
 
     public void move() {
 
-        Node head = body.getFirst();
+        // 判断是否存活
+        if (!isLiving) return;
 
-        // 注意！linkedlist.add()是追加在尾部的！
+        // 移动蛇蛇
+        Node head = body.getFirst();
         switch (direction) {
+            /* 注意！linkedlist.add()是追加在尾部的！*/
             case UP -> body.addFirst(new Node(head.getX(), head.getY() - 1));
             case DOWN -> body.addFirst(new Node(head.getX(), head.getY() + 1));
             case LEFT -> body.addFirst(new Node(head.getX() - 1, head.getY()));
             case RIGHT -> body.addFirst(new Node(head.getX() + 1, head.getY()));
         }
-
         body.removeLast();
+
+        // 判断是否撞墙
+        head = body.getFirst();
+        final int headX = head.getX();
+        final int headY = head.getY();
+        if (headX < 0 || headY < 0 || headX >= 40 || headY >= 40) {
+            isLiving = false;
+        }
+
+        // 判断是否撞到自己
+        for (int i = 1; i < body.size(); i++) {
+            /* i 从 1 开始，是为了排除自己 */
+            Node node = body.get(i);
+            if (headX == node.getX() && headY == node.getY()) {
+                isLiving = false;
+                break;
+            }
+        }
 
     }
 
