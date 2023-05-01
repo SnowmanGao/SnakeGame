@@ -54,6 +54,11 @@ public class MainFrame extends JFrame {
                     case KeyEvent.VK_LEFT, KeyEvent.VK_A -> snake.setDirection(Direction.LEFT);
 
                     case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> snake.setDirection(Direction.RIGHT);
+
+                    case KeyEvent.VK_R -> {
+                        initSnake();
+                        initFood();
+                    }
                 }
 
             }
@@ -68,6 +73,7 @@ public class MainFrame extends JFrame {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+
                 snake.move();
 
                 // 判断蛇头是否和食物重合
@@ -77,6 +83,7 @@ public class MainFrame extends JFrame {
                 }
 
                 jpanel.repaint();
+
             }
         };
 
@@ -108,7 +115,7 @@ public class MainFrame extends JFrame {
                     g.setColor(Color.BLACK);
                     g.fillRect(15 * node.getX(), 15 * node.getY(), 15, 15);
                     g.setColor(Color.WHITE);
-                    g.drawString(String.valueOf(idx), 15 * node.getX(), 15 * node.getY() + 15);
+                    g.drawString(String.valueOf(idx), 15 * node.getX(), 15 * node.getY() + 14);
                     idx++;
                 }
                 {
@@ -120,8 +127,8 @@ public class MainFrame extends JFrame {
                     g.setColor(Color.BLUE);
                     g.fillRect(15 * last.getX(), 15 * last.getY(), 15, 15);
                     g.setColor(Color.WHITE);
-                    g.drawString(String.valueOf(0), 15 * first.getX(), 15 * first.getY() + 15);
-                    g.drawString(String.valueOf(len), 15 * last.getX(), 15 * last.getY() + 15);
+                    g.drawString(String.valueOf(0), 15 * first.getX(), 15 * first.getY() + 14);
+                    g.drawString(String.valueOf(len - 1), 15 * last.getX(), 15 * last.getY() + 14);
                 }
 
                 // 绘制食物
@@ -137,7 +144,7 @@ public class MainFrame extends JFrame {
 
     private void initFrame() {
         setSize(615, 638);
-        setLocation(400, 400);
+        setLocation(500, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
     }

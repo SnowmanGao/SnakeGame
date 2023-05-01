@@ -37,9 +37,13 @@ public class Snake {
         Node head = body.getFirst();
         switch (direction) {
             /* 注意！linkedlist.add()是追加在尾部的！*/
+
             case UP -> body.addFirst(new Node(head.getX(), head.getY() - 1));
+
             case DOWN -> body.addFirst(new Node(head.getX(), head.getY() + 1));
+
             case LEFT -> body.addFirst(new Node(head.getX() - 1, head.getY()));
+
             case RIGHT -> body.addFirst(new Node(head.getX() + 1, head.getY()));
         }
         body.removeLast();
@@ -81,7 +85,7 @@ public class Snake {
     }
 
     public void eat(Node food) {
-        body.addFirst(food);
+        body.addLast(food.copy());
         food.random();
     }
 }

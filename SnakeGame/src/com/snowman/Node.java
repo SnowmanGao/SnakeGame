@@ -15,6 +15,10 @@ public class Node {
         this.y = y;
     }
 
+    public Node copy() {
+        return new Node(this.x, this.y);
+    }
+
     public int getX() {
         return x;
     }
