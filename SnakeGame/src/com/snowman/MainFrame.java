@@ -13,17 +13,21 @@ public class MainFrame extends JFrame {
     private Snake snake;
     private JPanel jpanel;
     private Timer timer;
+    private Node food;
 
     public MainFrame() throws HeadlessException {
 
         // 初始化窗口属性
         initFrame();
 
-        // 初始化游戏棋盘
+        // 初始化游戏棋盘，设置绘图回调
         initGamePanel();
 
         // 初始化蛇
         initSnake();
+
+        // 初始化食物
+        initFood();
 
         // 初始化定时器
         initTimer();
@@ -32,23 +36,24 @@ public class MainFrame extends JFrame {
         setKeyListener();
     }
 
+    private void initFood() {
+        food = new Node();
+        food.random();
+    }
+
     private void setKeyListener() {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
 
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP, KeyEvent.VK_W ->
-                        snake.setDirection(Direction.UP);
+                    case KeyEvent.VK_UP, KeyEvent.VK_W -> snake.setDirection(Direction.UP);
 
-                    case KeyEvent.VK_DOWN, KeyEvent.VK_S ->
-                        snake.setDirection(Direction.DOWN);
+                    case KeyEvent.VK_DOWN, KeyEvent.VK_S -> snake.setDirection(Direction.DOWN);
 
-                    case KeyEvent.VK_LEFT, KeyEvent.VK_A ->
-                        snake.setDirection(Direction.LEFT);
+                    case KeyEvent.VK_LEFT, KeyEvent.VK_A -> snake.setDirection(Direction.LEFT);
 
-                    case KeyEvent.VK_RIGHT, KeyEvent.VK_D ->
-                        snake.setDirection(Direction.RIGHT);
+                    case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> snake.setDirection(Direction.RIGHT);
                 }
 
             }
@@ -64,7 +69,13 @@ public class MainFrame extends JFrame {
             @Override
             public void run() {
                 snake.move();
-                // 重绘游戏画面
+
+                // 判断蛇头是否和食物重合
+                final Node head = snake.getBody().getFirst();
+                if (head.getX() == food.getX() && head.getY() == food.getY()) {
+                    snake.eat(food);
+                }
+
                 jpanel.repaint();
             }
         };
@@ -74,6 +85,9 @@ public class MainFrame extends JFrame {
 
 
     private void initGamePanel() {
+
+        // 绘图回调函数，在此定义！
+
         jpanel = new JPanel() {
             @Override
             public void paint(Graphics g) {
@@ -111,7 +125,8 @@ public class MainFrame extends JFrame {
                 }
 
                 // 绘制食物
-
+                g.setColor(Color.ORANGE);
+                g.fillRect(15 * food.getX(), 15 * food.getY(), 15, 15);
             }
         };
 

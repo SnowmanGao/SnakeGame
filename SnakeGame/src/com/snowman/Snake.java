@@ -79,4 +79,9 @@ public class Snake {
     public Direction getDirection() {
         return direction;
     }
+
+    public void eat(Node food) {
+        body.addFirst(food);
+        food.random();
+    }
 }
